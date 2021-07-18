@@ -26,8 +26,6 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar />
-
         <div className="row">
           <div className="col-2 p-4">
             <Category sendGenre={this.receiveGenre} />
