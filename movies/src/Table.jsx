@@ -10,7 +10,7 @@ class Table extends React.Component {
 
   componentDidMount() {
     fetch("/movies")
-      .then((res)=> {
+      .then((res) => {
         return res.json();
       })
       .then((json) => {
@@ -21,7 +21,17 @@ class Table extends React.Component {
   }
 
   render() {
-    let numberOfPages = Math.ceil(this.state.allMovies.length / 5);
+    let moviesToDisplay = this.state.allMovies;
+
+    let searchQuery = this.props.searchQuery.toLowerCase().trim();
+
+    if (searchQuery !== "") {
+      moviesToDisplay = moviesToDisplay.filter((el) => {
+        return el.title.toLowerCase().includes(searchQuery);
+      });
+    }
+
+    let numberOfPages = Math.ceil(moviesToDisplay.length / 5);
     let pageArr = [];
     for (let i = 1; i <= numberOfPages; i++) {
       pageArr.push(i);
@@ -30,9 +40,9 @@ class Table extends React.Component {
     let starting = (this.state.currPage - 1) * 5;
     let ending = this.state.currPage * 5 - 1;
 
-    let moviesToDisplay = this.state.allMovies.slice(
+    moviesToDisplay = moviesToDisplay.slice(
       starting,
-      Math.min(ending + 1, this.state.allMovies.length)
+      Math.min(ending + 1, moviesToDisplay.length)
     );
 
     return (

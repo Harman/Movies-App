@@ -1,25 +1,25 @@
 import React from "react";
 
-class Search extends React.Component {
-  state = {};
+function Search(props) {
 
-  render() {
     return (
       <div>
-        <p>Showing {this.props.noOfMovies} movies from the database</p>
+        <p>Showing {props.noOfMovies} movies from the database</p>
         <button type="button" className="btn btn-primary mb-4">
           New
         </button>
-        <div>
+        <div className="input-group mb-3">
           <input
             type="text"
             className="form-control"
             placeholder="Search..."
+            onChange={(e) => {
+              props.sendCurrSearch(e.currentTarget.value);
+            }}
           ></input>
         </div>
       </div>
     );
-  }
 }
 
 export default Search;
