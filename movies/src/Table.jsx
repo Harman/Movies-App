@@ -23,8 +23,13 @@ class Table extends React.Component {
   render() {
     let moviesToDisplay = this.state.allMovies;
 
-    let searchQuery = this.props.searchQuery.toLowerCase().trim();
+    if(this.props.currGenre !== "All") {
+      moviesToDisplay = moviesToDisplay.filter((el) => {
+        return this.props.currGenre === el.genre.name;
+      })
+    }
 
+    let searchQuery = this.props.searchQuery.toLowerCase().trim();
     if (searchQuery !== "") {
       moviesToDisplay = moviesToDisplay.filter((el) => {
         return el.title.toLowerCase().includes(searchQuery);
