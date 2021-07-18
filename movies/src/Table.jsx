@@ -6,6 +6,7 @@ class Table extends React.Component {
   state = {
     allMovies: [],
     currPage: 1,
+    // displayedMoviesLength: 0,
   };
 
   componentDidMount() {
@@ -20,13 +21,17 @@ class Table extends React.Component {
       });
   }
 
+  // componentDidUpdate() {
+  //   this.props.sendData(this.state.displayedMoviesLength);
+  // }
+
   render() {
     let moviesToDisplay = this.state.allMovies;
 
-    if(this.props.currGenre !== "All") {
+    if (this.props.currGenre !== "All") {
       moviesToDisplay = moviesToDisplay.filter((el) => {
         return this.props.currGenre === el.genre.name;
-      })
+      });
     }
 
     let searchQuery = this.props.searchQuery.toLowerCase().trim();
@@ -49,6 +54,8 @@ class Table extends React.Component {
       starting,
       Math.min(ending + 1, moviesToDisplay.length)
     );
+
+    // this.setState({ displayedMoviesLength: moviesToDisplay.length });
 
     return (
       <div>
